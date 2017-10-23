@@ -39,4 +39,4 @@ async def on_message(message):
 
 
 # Testbot-9000
-bot.run('MTg3MTU3Nzk1MjA2ODU2NzA0.DJm8Sg.FyRDFpoSarSq2LC6wTpU3VfFTIQ')
+bot.run('MzcyMDcyMjQyNzgxMDkzODg4.DM-4Wg.03FPGnRXCVP2LzLe1VuWgNYO3bY')
