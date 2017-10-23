@@ -138,34 +138,32 @@ class Cleverbot():
 
             to_strip = "@" + author.server.me.display_name + " "
             text = message.clean_content
-            if not text.startswith(to_strip):
-                await self.bot.process_commands(message)
-                return
-            await self.bot.send_typing(channel)
-            try:
-                response = await self.get_response(author, text)
-            except NoCredentials:
-                await self.bot.send_message(channel, "The owner needs to set the credentials first.\n"
-                                                     "See: `[p]cleverbot apikey`")
-            except APIError:
-                await self.bot.send_message(channel, "Error contacting the API.")
-            except InvalidCredentials:
-                await self.bot.send_message(channel, "The token that has been set is not valid.\n"
-                                                     "See: `[p]cleverbot apikey`")
-            except OutOfRequests:
-                await self.bot.send_message(channel, "You have ran out of requests for this month. "
-                                                     "The free tier has a 5000 requests a month limit.")
-            except OutdatedCredentials:
-                await self.bot.send_message(channel, "LUL")
-            else:
+            if text.startswith(to_strip):
+                await self.bot.send_typing(channel)
+                try:
+                    response = await self.get_response(author, text)
+                except NoCredentials:
+                    await self.bot.send_message(channel, "The owner needs to set the credentials first.\n"
+                                                         "See: `[p]cleverbot apikey`")
+                except APIError:
+                    await self.bot.send_message(channel, "Error contacting the API.")
+                except InvalidCredentials:
+                    await self.bot.send_message(channel, "The token that has been set is not valid.\n"
+                                                         "See: `[p]cleverbot apikey`")
+                except OutOfRequests:
+                    await self.bot.send_message(channel, "You have ran out of requests for this month. "
+                                                         "The free tier has a 5000 requests a month limit.")
+                except OutdatedCredentials:
+                    await self.bot.send_message(channel, "LUL")
+                else:
 
-                embed = discord.Embed(
-                    title='Bot',
-                    description=random.choice(choices),
-                    color=0x4C0099,
-                )
-                embed.add_field(name="Reply to {0.display_name}:".format(message.author), value=response)
-                await self.bot.send_message(channel, embed=embed)
+                    embed = discord.Embed(
+                        title='Bot',
+                        description=random.choice(choices),
+                        color=0x4C0099,
+                    )
+                    embed.add_field(name="Reply to {0.display_name}:".format(message.author), value=response)
+                    await self.bot.send_message(channel, embed=embed)
 
         await self.bot.process_commands(message)
 
