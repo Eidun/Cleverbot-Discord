@@ -136,6 +136,11 @@ class Cleverbot():
         if message.author.id != self.bot.user.id:
             text = message.clean_content
 
+            to_strip = "@" + author.server.me.display_name + " "
+            text = message.clean_content
+            if not text.startswith(to_strip):
+                await self.bot.process_commands(message)
+                return
             await self.bot.send_typing(channel)
             try:
                 response = await self.get_response(author, text)
